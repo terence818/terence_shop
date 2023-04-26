@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "517234927931",
+    "project_id": "terence-app-fb576",
+    "storage_bucket": "terence-app-fb576.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517234927931:android:d1d1be61b530844f0caf1e",
+        "android_client_info": {
+          "package_name": "com.example.terence_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517234927931-ckgm4nngqbo8d8uh21e0t6b2uop9blf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApJkiqgHJ9FTfCI6G4HEA9oe2FW6KrwZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517234927931-ckgm4nngqbo8d8uh21e0t6b2uop9blf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
