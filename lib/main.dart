@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:terence_app/controller/auth_controller.dart';
+import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/home_page.dart';
 import 'package:terence_app/login_page.dart';
 import 'package:terence_app/register_page.dart';
 import 'package:get/get.dart';
 import 'package:terence_app/service/auth_service.dart';
+import 'helper/dependencies.dart' as dep;
 
 // void main() {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +15,9 @@ import 'package:terence_app/service/auth_service.dart';
 // }
 
 Future<void> main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   runApp(const MyApp());
 }
@@ -24,6 +28,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.find<PopularProductController>().getPopularProductList();
     return GetMaterialApp(
       // set the initial rout
       title: 'Flutter Demo',
