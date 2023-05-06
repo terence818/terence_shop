@@ -26,7 +26,7 @@ class AuthController extends GetxController {
     
       Get.offAll(() => LoginPage());
     } else {
-      Get.offAll(() => RecommendedFoodDetail());
+      Get.offAll(() => HomePage());
     }
   }
 

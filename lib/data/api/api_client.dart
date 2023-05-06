@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:terence_app/utils/app_constants.dart';
 
 class ApiClient extends GetConnect implements GetxService {
   late String token;
@@ -8,8 +9,8 @@ class ApiClient extends GetConnect implements GetxService {
 
   ApiClient({required this.appBaseUrl}) {
     baseUrl = appBaseUrl;
-    timeout = Duration(seconds: 30);
-    token = ''; // replace with your actual token value
+    timeout = Duration(seconds: 60);
+    token = AppConstants.TOKEN; // replace with your actual token value
     _mainHeaders = {
         'Content-type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',

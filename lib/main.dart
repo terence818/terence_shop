@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
+import 'package:terence_app/controller/recommended_product_controller.dart';
 import 'package:terence_app/home_page.dart';
 import 'package:terence_app/login_page.dart';
 import 'package:terence_app/register_page.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
+    Get.find<RecommendedProductController>().getRecommendedProductList();
     return GetMaterialApp(
       // set the initial rout
       title: 'Flutter Demo',

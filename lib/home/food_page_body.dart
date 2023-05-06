@@ -1,5 +1,10 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:terence_app/controller/popular_product_controller.dart';
+import 'package:terence_app/controller/recommended_product_controller.dart';
+import 'package:terence_app/food/popular_food_detail.dart';
+import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
 import 'package:terence_app/widgets/app_column.dart';
@@ -42,18 +47,26 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(
       children: [
         // slider section
-        Container(
+       GetBuilder<PopularProductController>(builder: (popularProducts){
+          return  popularProducts.isLoaded?Container(
           // color: Colors.redAccent,
           height: Dimensions.PageView,
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: 5,
-              itemBuilder: (context, position) {
-                return _buildPageItem(position);
-              }),
-        ),
-        new DotsIndicator(
-          dotsCount: 5,
+          child: GestureDetector(
+            onTap: (){
+              Get.to(()=>PopularFoodDetail());
+            },
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: popularProducts.popularProductList.length,
+                itemBuilder: (context, position) {
+                  return _buildPageItem(position, popularProducts.popularProductList[position]);
+                }),
+          ),
+        ):CircularProgressIndicator(color:AppColors.pink);
+       }),
+       GetBuilder<PopularProductController>(builder: (popularProducts){
+        return  new DotsIndicator(
+          dotsCount: popularProducts.popularProductList.isEmpty?1:popularProducts.popularProductList.length,
           position: _currPagevalue,
           decorator: DotsDecorator(
             activeColor: AppColors.pink,
@@ -62,8 +75,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             activeShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radius5)),
           ),
-        ),
+        );
 
+       }),
         //Popular text
         SizedBox(height: Dimensions.height10),
         Container(
@@ -71,7 +85,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                BigText(text: "Popular"),
+                BigText(text: "Recommended"),
                 SizedBox(width: Dimensions.width10),
                 Container(
                     margin: const EdgeInsets.only(bottom: 3),
@@ -83,10 +97,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               ],
             )),
         //list of food and images
-        ListView.builder(
+          GetBuilder<RecommendedProductController>(builder: (recommendedProduct){
+            return  recommendedProduct.isLoaded? ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: recommendedProduct.recommendedProductList.length,
                 itemBuilder: (context, index) {
                   return Container(
                       margin: EdgeInsets.only(
@@ -105,8 +120,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                 color: Colors.white,
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        'assets/images/karina1.jpg'))),
+                                    image: NetworkImage(AppConstants.BASE_URL + AppConstants.UPLOAD + recommendedProduct.recommendedProductList[index].img))
+                                    // AssetImage(
+                                    //     'assets/images/27567f904a64ba79ae95672e4ddf10c8.png')
+                                    //     )
+                                       
+                                    ),
                           ),
                           //text container
                           Expanded(
@@ -131,12 +150,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                     children: [
                                       BigText(
                                           text:
-                                              "Nutritious fruit meal in China "),
+                                              recommendedProduct.recommendedProductList[index].name),
                                       SizedBox(
                                         height: Dimensions.height10,
                                       ),
                                       SmallText(
-                                          text: "With chinese characteristic"),
+                                          text: "Price: RM " + recommendedProduct.recommendedProductList[index].price.toString()),
                                       SizedBox(
                                         height: Dimensions.height10,
                                       ),
@@ -164,12 +183,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                           )
                         ],
                       ));
-                })
+                }
+                ):CircularProgressIndicator(
+                  color:AppColors.pink
+                );
+          })
       ],
     );
   }
 
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(int index, popularProduct) {
     Matrix4 matrix = new Matrix4.identity();
     if (index == _currPagevalue.floor()) {
       var currScale = 1 - (_currPagevalue - index) * (1 - _scaleFactor);
@@ -207,7 +230,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 color: index.isEven ? Color(0xFF69c5df) : Color(0xFF9294cc),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/karina.jpeg"),
+                  // image: AssetImage("assets/images/karina.jpeg"),
+                    // image: NetworkImage(AppConstants.BASE_URL + "/uploads/images/" +"f937dbd76381d1c10fdfcfd90688cb96.png"),
+                   image: NetworkImage(AppConstants.BASE_URL + AppConstants.UPLOAD +popularProduct.img!),
                 ))),
         Align(
           alignment: Alignment.bottomCenter,
@@ -233,7 +258,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   top: Dimensions.height15,
                   left: Dimensions.width15,
                   right: Dimensions.width15),
-              child: AppColumn(text: "Aespa Karina"),
+              child: AppColumn(text: popularProduct.name!),
             ),
           ),
         )
