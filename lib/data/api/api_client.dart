@@ -9,7 +9,7 @@ class ApiClient extends GetConnect implements GetxService {
   ApiClient({required this.appBaseUrl}) {
     baseUrl = appBaseUrl;
     timeout = Duration(seconds: 30);
-    token = 'YOUR_TOKEN_VALUE_HERE'; // replace with your actual token value
+    token = ''; // replace with your actual token value
     _mainHeaders = {
         'Content-type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -17,7 +17,9 @@ class ApiClient extends GetConnect implements GetxService {
   }
   Future<Response> getData(String uri,) async{
     try{
+      
       Response response = await get(uri);
+      // print(response);
       return response;
 
     }catch(e) {

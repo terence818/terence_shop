@@ -9,7 +9,7 @@ import 'package:terence_app/data/repository/popular_product_repo.dart';
 Future<void> init()async {
 
   //api client
-  Get.lazyPut(() => ApiClient(appBaseUrl: "https://mvs.bslmeiyu.com"));
+  Get.lazyPut(() => ApiClient(appBaseUrl: "http://192.168.100.21:8000"));
 
   //repos
   Get.lazyPut(() => PopularProductRepo(apiClient: Get.find()));
