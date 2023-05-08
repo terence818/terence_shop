@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
 import 'package:terence_app/widgets/app_icon.dart';
@@ -16,11 +18,15 @@ class RecommendedFoodDetail extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 60,
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.clear),
+                  GestureDetector(onTap: () {
+                    Get.toNamed(RouteHelper.getInitial());
+                  } ,
+                  child: AppIcon(icon: Icons.clear)),
                   AppIcon(icon: Icons.shopping_cart_outlined)
                 ]),
             bottom: PreferredSize(

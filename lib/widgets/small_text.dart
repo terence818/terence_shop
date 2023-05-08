@@ -13,7 +13,7 @@ class SmallText extends StatelessWidget {
       required this.text,
       this.size = 12,
       this.height = 1.2,
-      this.maxLines = null})
+      this.maxLines})
       : super(key: key);
 
   @override

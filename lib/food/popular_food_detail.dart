@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:terence_app/controller/popular_product_controller.dart';
+import 'package:terence_app/home/main_food_page.dart';
+import 'package:terence_app/home_page.dart';
+import 'package:terence_app/routes/route_helper.dart';
+import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
 import 'package:terence_app/widgets/app_column.dart';
@@ -9,10 +15,14 @@ import 'package:terence_app/widgets/icon_and_text_widget.dart';
 import 'package:terence_app/widgets/small_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  int pageId;
+  PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product= Get.find<PopularProductController>().popularProductList[pageId];
+    print("page is id" + pageId.toString());
+    print("product name is" + product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -27,7 +37,9 @@ class PopularFoodDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('assets/images/karina2.jpg'))),
+                        image: NetworkImage(AppConstants.BASE_URL + AppConstants.UPLOAD + product.img)
+                        // AssetImage('assets/images/karina2.jpg')
+                        )),
               )),
           //icon widgets
           Positioned(
@@ -37,7 +49,11 @@ class PopularFoodDetail extends StatelessWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios_new),
+                 GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteHelper.getInitial());
+                  },
+                  child: AppIcon(icon: Icons.arrow_back_ios_new)),
                   AppIcon(icon: Icons.shopping_cart_outlined)
                 ]),
           ),
@@ -61,7 +77,7 @@ class PopularFoodDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppColumn(text: "Aespa Karina"),
+                      AppColumn(text: product.name),
                       SizedBox(
                         height: Dimensions.height20,
                       ),
@@ -74,7 +90,7 @@ class PopularFoodDetail extends StatelessWidget {
                           child: SingleChildScrollView(
                               child: ExpandableTextWidget(
                                   text:
-                                      "The issue with your ExpandableTextWidget is that you have not set the maxLines property of the SmallText widget to allow the text to wrap to multiple lines. By default, the maxLines property of a Text widget (which is a parent of SmallText) is set to 1, which causes the text to be displayed in a single line.To fix this issue, you need to set the maxLines property of the SmallText widget to null or a value greater than 1. This will allow the text to wrap to multiple lines based on the available width. You can do this by adding the maxLines property to the SmallText widget in your build method as shown below:")))
+                                     product.description)))
                     ],
                   ))),
         ],
@@ -126,7 +142,7 @@ class PopularFoodDetail extends StatelessWidget {
                   bottom: Dimensions.height20,
                   left: Dimensions.width20,
                   right: Dimensions.width20),
-              child: BigText(text: "\RM10 | Add to cart", color: Colors.white),
+              child: BigText(text: "\RM ${product.price} | Add to cart", color: Colors.white),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: AppColors.pink),

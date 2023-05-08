@@ -7,6 +7,7 @@ import 'package:terence_app/home_page.dart';
 import 'package:terence_app/login_page.dart';
 import 'package:terence_app/register_page.dart';
 import 'package:get/get.dart';
+import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/service/auth_service.dart';
 import 'helper/dependencies.dart' as dep;
 
@@ -47,6 +48,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.pink,
       ),
       home: AuthService().handleAuthState(),
+      initialRoute: RouteHelper.initial,
+      getPages:RouteHelper.routes,
       // AuthService().handleAuthState()
     );
   }

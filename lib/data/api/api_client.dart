@@ -24,7 +24,9 @@ class ApiClient extends GetConnect implements GetxService {
       return response;
 
     }catch(e) {
+      await Future.delayed(Duration(seconds: 2));
       return Response(statusCode: 1,statusText: e.toString());
+      
     }
   }
 }
