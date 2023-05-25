@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:terence_app/controller/recommended_product_controller.dart';
 import 'package:terence_app/routes/route_helper.dart';
+import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
 import 'package:terence_app/widgets/app_icon.dart';
@@ -9,10 +11,12 @@ import 'package:terence_app/widgets/big_text.dart';
 import 'package:terence_app/widgets/expandable_text_widget.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+  const RecommendedFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -35,7 +39,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 // margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
                 child: Center(
                     child:
-                        BigText(size: Dimensions.font26, text: "Aespa Karina")),
+                        BigText(size: Dimensions.font26, text: product.name)),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
                 decoration: BoxDecoration(
@@ -49,8 +53,8 @@ class RecommendedFoodDetail extends StatelessWidget {
             backgroundColor: AppColors.orange,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/images/karina3.jpg",
+              background: Image.network(
+                AppConstants.BASE_URL + AppConstants.UPLOAD + product.img,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -63,9 +67,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 margin: EdgeInsets.only(
                     left: Dimensions.width20, right: Dimensions.width20),
                 child: ExpandableTextWidget(
-                    text:
-                        // "Hi"
-                        "The issue with your ExpandableTextWidget is that you have not set the maxLines property of the SmallText widget to allow the text to wrap to multiple lines. By default, the maxLines property of a Text widget (which is a parent of SmallText) is set to 1, which causes the text to be displayed in a single line.To fix this issue, you need to set the maxLines property of the SmallText widget to null or a value greater than 1. This will allow the text to wrap to multiple lines based on the available width. You can do this by adding the maxLines property to the SmallText widget in your build method as shown below:The issue with your ExpandableTextWidget is that you have not set the maxLines property of the SmallText widget to allow the text to wrap to multiple lines. By default, the maxLines property of a Text widget (which is a parent of SmallText) is set to 1, which causes the text to be displayed in a single line.To fix this issue, you need to set the maxLines property of the SmallText widget to null or a value greater than 1. This will allow the text to wrap to multiple lines based on the available width. You can do this by adding the maxLines property to the SmallText widget in your build method as shown below:The issue with your ExpandableTextWidget is that you have not set the maxLines property of the SmallText widget to allow the text to wrap to multiple lines. By default, the maxLines property of a Text widget (which is a parent of SmallText) is set to 1, which causes the text to be displayed in a single line.To fix this issue, you need to set the maxLines property of the SmallText widget to null or a value greater than 1. This will allow the text to wrap to multiple lines based on the available width. You can do this by adding the maxLines property to the SmallText widget in your build method as shown below:"),
+                    text:product.description),
               )
             ],
           ))
@@ -86,7 +88,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                   iconColor: Colors.white,
                   backgroundColor: AppColors.pink,
                   icon: Icons.remove),
-              BigText(text: "RM12.88" + " X" + " 0"),
+              BigText(text: "RM ${product.price} X 0"),
               AppIcon(
                   iconSize: Dimensions.iconSize24,
                   iconColor: Colors.white,

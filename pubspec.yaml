@@ -38,6 +38,7 @@ dependencies:
   molten_navigationbar_flutter: ^1.0.1
   image_picker: ^0.8.7+1
   get: ^4.6.5
+  cached_network_image: ^3.0.0
   firebase_auth: ^4.4.1
   firebase_core: ^2.9.0
   google_sign_in: ^6.1.0

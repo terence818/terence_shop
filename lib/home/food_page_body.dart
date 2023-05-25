@@ -12,6 +12,7 @@ import 'package:terence_app/widgets/app_column.dart';
 import 'package:terence_app/widgets/big_text.dart';
 import 'package:terence_app/widgets/icon_and_text_widget.dart';
 import 'package:terence_app/widgets/small_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -97,6 +98,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     child: SmallText(text: "Food pairing")),
               ],
             )),
+        //recommended food
         //list of food and images
         GetBuilder<RecommendedProductController>(builder: (recommendedProduct) {
           return recommendedProduct.isLoaded
@@ -107,7 +109,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed(RouteHelper.getRecommendedFood());
+                        Get.toNamed(RouteHelper.getRecommendedFood(index));
                       },
                       child: Container(
                           margin: EdgeInsets.only(
@@ -122,7 +124,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                 height: Dimensions.ListViewImgSize,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(
-                                      Dimensions.radius20),
+                                      Dimensions.radius30),
                                   color: Colors.white,
                                 ),
                                 child: ClipRRect(
@@ -134,10 +136,13 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                         recommendedProduct
                                             .recommendedProductList[index].img,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (_, __, ___) => Image.asset(
-                                      'assets/images/karina.jpeg',
-                                      fit: BoxFit.cover,
-                                    ),
+                                    errorBuilder: (_, error, stackTrace) {
+                                      print('Error loading image: $error');
+                                      return Image.asset(
+                                        'assets/images/karina.jpeg',
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
                                   ),
                                 ),
                               ),
@@ -256,7 +261,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     // image: AssetImage("assets/images/karina.jpeg"),
-                    // image: NetworkImage(AppConstants.BASE_URL + "/uploads/images/" +"f937dbd76381d1c10fdfcfd90688cb96.png"),
+                 
                     image: NetworkImage(AppConstants.BASE_URL +
                         AppConstants.UPLOAD +
                         popularProduct.img!),
