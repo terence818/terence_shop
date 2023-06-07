@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/home/main_food_page.dart';
 import 'package:terence_app/home_page.dart';
@@ -20,9 +21,11 @@ class PopularFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var product = Get.find<PopularProductController>().popularProductList[pageId];
-    Get.find<PopularProductController>().initProduct();
-   
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    Get.find<PopularProductController>()
+        .initProduct(product,Get.find<CartController>());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -64,7 +67,7 @@ class PopularFoodDetail extends StatelessWidget {
               left: 0,
               right: 0,
               bottom: 0,
-              top: Dimensions.popularFoodImgSize - 70, // container height
+              top: Dimensions.popularFoodImgSize - 20, // container height
               child: Container(
                   padding: EdgeInsets.only(
                       left: Dimensions.width20,
@@ -99,10 +102,10 @@ class PopularFoodDetail extends StatelessWidget {
       bottomNavigationBar: GetBuilder<PopularProductController>(
         builder: (popularProduct) {
           return Container(
-            height: Dimensions.bottomHeightBar,
+            height: 100,
             padding: EdgeInsets.only(
-                top: Dimensions.height30,
-                bottom: Dimensions.height30,
+                top: Dimensions.height20,
+                bottom: Dimensions.height20,
                 left: Dimensions.width20,
                 right: Dimensions.width20),
             decoration: BoxDecoration(
@@ -117,8 +120,8 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.only(
-                      top: Dimensions.height20,
-                      bottom: Dimensions.height20,
+                      top: Dimensions.height10,
+                      bottom: Dimensions.height10,
                       left: Dimensions.width20,
                       right: Dimensions.width20),
                   decoration: BoxDecoration(
@@ -127,8 +130,8 @@ class PopularFoodDetail extends StatelessWidget {
                   child: Row(children: [
                     GestureDetector(
                       onTap: () {
-                          popularProduct.setQuantity(false);
-                        },
+                        popularProduct.setQuantity(false);
+                      },
                       child: Icon(
                         Icons.remove,
                         color: AppColors.black,
@@ -150,13 +153,18 @@ class PopularFoodDetail extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.only(
-                      top: Dimensions.height20,
-                      bottom: Dimensions.height20,
+                      top: Dimensions.height10,
+                      bottom: Dimensions.height10,
                       left: Dimensions.width20,
                       right: Dimensions.width20),
-                  child: BigText(
-                      text: "\RM ${product.price} | Add to cart",
-                      color: Colors.white),
+                  child: GestureDetector(
+                    onTap: () {
+                      popularProduct.addItem(product);
+                    },
+                    child: BigText(
+                        text: "\RM ${product.price} | Add to cart",
+                        color: Colors.white),
+                  ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(Dimensions.radius20),
                       color: AppColors.pink),
