@@ -136,13 +136,13 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                         recommendedProduct
                                             .recommendedProductList[index].img,
                                     fit: BoxFit.cover,
-                                    errorBuilder: (_, error, stackTrace) {
-                                      print('Error loading image: $error');
-                                      return Image.asset(
-                                        'assets/images/karina.jpeg',
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
+                                    // errorBuilder: (_, error, stackTrace) {
+                                    //   print('Error loading image: $error');
+                                    //   return Image.asset(
+                                    //     'assets/images/karina.jpeg',
+                                    //     fit: BoxFit.cover,
+                                    //   );
+                                    // },
                                   ),
                                 ),
                               ),
@@ -265,7 +265,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     image: NetworkImage(AppConstants.BASE_URL +
                         AppConstants.UPLOAD +
                         popularProduct.img!),
-                  ))),
+                  ))
+                  ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
