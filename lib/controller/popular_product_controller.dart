@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/data/repository/popular_product_repo.dart';
+import 'package:terence_app/models/cart_model.dart';
 import 'package:terence_app/models/products_model.dart';
 import 'package:terence_app/utils/colors.dart';
 
@@ -123,5 +124,9 @@ Future<void> getPopularProductList() async {
 
   int get totalItems {
     return _cart.totalItems;
+  }
+
+  List<CartModel> get getItems{
+    return _cart.getItems;
   }
 }

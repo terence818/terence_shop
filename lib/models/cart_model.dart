@@ -1,3 +1,5 @@
+import 'package:terence_app/models/products_model.dart';
+
 class CartModel {
   late int id;
   late String name;
@@ -6,6 +8,7 @@ class CartModel {
   late int quantity;
   late bool isExist;
   late String time;
+  ProductModel? product;
 
   CartModel(
       {required this.id,
@@ -14,7 +17,8 @@ class CartModel {
       required this.img,
       required this.quantity,
       required this.isExist,
-      required this.time});
+      required this.time,
+      required this.product});
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -24,6 +28,7 @@ class CartModel {
     quantity =json['quantity'];
     isExist = json['isExist'];
     time = json['time'];
+    product=ProductModel.fromJson(json['product']);
   }
 
  

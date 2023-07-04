@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.pink,
       ),
       home: AuthService().handleAuthState(),
-      initialRoute: RouteHelper.initial,
+      initialRoute: RouteHelper.getInitial(),
       getPages:RouteHelper.routes,
       // AuthService().handleAuthState()
     );

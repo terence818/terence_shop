@@ -13,11 +13,10 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   void addItem(ProductModel product, int quantity) {
-    var totalQuantity=0;
+    var totalQuantity = 0;
     if (_items.containsKey(product.id)) {
       _items.update(product.id, (value) {
-
-        totalQuantity=value.quantity+quantity;
+        totalQuantity = value.quantity + quantity;
 
         return CartModel(
             id: value.id,
@@ -26,13 +25,13 @@ class CartController extends GetxController {
             img: value.img,
             quantity: value.quantity + quantity,
             isExist: true,
-            time: DateTime.now().toString());
+            time: DateTime.now().toString(),
+             product: product);
       });
 
-        if(totalQuantity<=0){
-          _items.remove(product.id);
-        }
-
+      if (totalQuantity <= 0) {
+        _items.remove(product.id);
+      }
     } else {
       if (quantity > 0) {
         _items.putIfAbsent(product.id, () {
@@ -43,13 +42,16 @@ class CartController extends GetxController {
               img: product.img,
               quantity: quantity,
               isExist: true,
-              time: DateTime.now().toString());
+              time: DateTime.now().toString(),
+              product: product);
         });
-      } else{
-         Get.snackbar("Add Cart", "You should at least add an item in the cart!",
-          backgroundColor: AppColors.pink, colorText: Colors.white);
+      } else {
+        Get.snackbar("Add Cart", "You should at least add an item in the cart!",
+            backgroundColor: AppColors.pink, colorText: Colors.white);
       }
     }
+
+    update();
   }
 
   bool existInCart(ProductModel product) {
@@ -72,13 +74,29 @@ class CartController extends GetxController {
     return quantity;
   }
 
-  int get totalItems{
-    var totalQuantity=0;
+  int get totalItems {
+    var totalQuantity = 0;
     _items.forEach((key, value) {
       totalQuantity += value.quantity;
     });
 
     return totalQuantity;
-
   }
+
+  List<CartModel> get getItems {
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
+  }
+
+   int get totalAmount {
+  var total = 0;
+
+  _items.forEach((key, value) {
+    total += (value.quantity! * value.price!).toInt();
+  });
+
+  return total;
+}
+
 }
