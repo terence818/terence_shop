@@ -42,7 +42,7 @@ class _MenuPageState extends State<MenuPage> {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 80,
             child: ListView(
               scrollDirection: Axis.horizontal,

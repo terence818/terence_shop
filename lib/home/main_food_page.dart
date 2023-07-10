@@ -55,12 +55,12 @@ class _MainFoodPageState extends State<MainFoodPage> {
                       child: Container(
                         width: Dimensions.width45,
                         height: Dimensions.height45,
-                        child:
-                            Icon(Icons.search, color: Colors.white, size: 20),
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.circular(Dimensions.radius15),
                             color: AppColors.pink),
+                        child:
+                            Icon(Icons.search, color: Colors.white, size: 20),
                       ),
                     )
                   ],

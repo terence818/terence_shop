@@ -11,10 +11,10 @@ class Product {
     required offset,
     required products,
   }) {
-    this._totalSize = totalSize;
-    this._typeId = typeId;
-    this._offset = offset;
-    this._products = products;
+    _totalSize = totalSize;
+    _typeId = typeId;
+    _offset = offset;
+    _products = products;
   }
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -69,17 +69,17 @@ class ProductModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['stars'] = this.stars;
-    data['img'] = this.img;
-    data['location'] = this.location;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['typeID'] = this.typeID;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    data['price'] = price;
+    data['stars'] = stars;
+    data['img'] = img;
+    data['location'] = location;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['typeID'] = typeID;
     return data;
   }
 }

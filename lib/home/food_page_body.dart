@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/controller/recommended_product_controller.dart';
-import 'package:terence_app/food/popular_food_detail.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
@@ -12,7 +11,6 @@ import 'package:terence_app/widgets/app_column.dart';
 import 'package:terence_app/widgets/big_text.dart';
 import 'package:terence_app/widgets/icon_and_text_widget.dart';
 import 'package:terence_app/widgets/small_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -24,8 +22,8 @@ class FoodPageBody extends StatefulWidget {
 class _FoodPageBodyState extends State<FoodPageBody> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currPagevalue = 0.0;
-  double _scaleFactor = 0.8;
-  double _height = Dimensions.PageViewContainer;
+  final double _scaleFactor = 0.8;
+  final double _height = Dimensions.PageViewContainer;
 
   @override
   void initState() {
@@ -51,7 +49,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         // slider section
         GetBuilder<PopularProductController>(builder: (popularProducts) {
           return popularProducts.isLoaded
-              ? Container(
+              ? SizedBox(
                   // color: Colors.redAccent,
                   height: Dimensions.PageView,
 
@@ -66,7 +64,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               : CircularProgressIndicator(color: AppColors.pink);
         }),
         GetBuilder<PopularProductController>(builder: (popularProducts) {
-          return new DotsIndicator(
+          return DotsIndicator(
             dotsCount: popularProducts.popularProductList.isEmpty
                 ? 1
                 : popularProducts.popularProductList.length,
@@ -176,19 +174,17 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                             height: Dimensions.height10,
                                           ),
                                           SmallText(
-                                              text: "Price: RM " +
-                                                  recommendedProduct
+                                              text: "Price: RM ${recommendedProduct
                                                       .recommendedProductList[
                                                           index]
-                                                      .price
-                                                      .toString()),
+                                                      .price}"),
                                           SizedBox(
                                             height: Dimensions.height10,
                                           ),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
-                                            children: [
+                                            children: const [
                                               IconAndTextWidget(
                                                   icon: Icons.circle_sharp,
                                                   text: "Normal",
@@ -219,7 +215,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   }
 
   Widget _buildPageItem(int index, popularProduct) {
-    Matrix4 matrix = new Matrix4.identity();
+    Matrix4 matrix = Matrix4.identity();
     if (index == _currPagevalue.floor()) {
       var currScale = 1 - (_currPagevalue - index) * (1 - _scaleFactor);
       var currTrans = _height * (1 - currScale) / 2;
@@ -279,7 +275,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       color: Color(0xFFe8e8e8),
                       blurRadius: 10.0,

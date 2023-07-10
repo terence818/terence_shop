@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartPage extends StatefulWidget {
@@ -16,7 +15,7 @@ class _CartPageState extends State<CartPage> {
   final CollectionReference _products =
       FirebaseFirestore.instance.collection('products');
 
-  Future<void> _create([DocumentSnapshot? documentSnapshot]) async {
+  Future<void> _create() async {
 
     await showModalBottomSheet(
         isScrollControlled: true,

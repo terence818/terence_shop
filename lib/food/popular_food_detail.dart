@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
-import 'package:terence_app/home/main_food_page.dart';
-import 'package:terence_app/home_page.dart';
-import 'package:terence_app/pages/cart/cart_page.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
@@ -13,8 +10,7 @@ import 'package:terence_app/widgets/app_column.dart';
 import 'package:terence_app/widgets/app_icon.dart';
 import 'package:terence_app/widgets/big_text.dart';
 import 'package:terence_app/widgets/expandable_text_widget.dart';
-import 'package:terence_app/widgets/icon_and_text_widget.dart';
-import 'package:terence_app/widgets/small_text.dart';
+
 
 class PopularFoodDetail extends StatelessWidget {
   int pageId;
@@ -68,8 +64,9 @@ class PopularFoodDetail extends StatelessWidget {
                   GetBuilder<PopularProductController>(builder: (controller) {
                     return GestureDetector(
                       onTap: () {
-                        if (controller.totalItems >= 1)
+                        if (controller.totalItems >= 1) {
                           Get.toNamed(RouteHelper.getCartPage());
+                        }
                       },
                       child: Stack(
                         children: [
@@ -204,13 +201,13 @@ class PopularFoodDetail extends StatelessWidget {
                           bottom: Dimensions.height10,
                           left: Dimensions.width20,
                           right: Dimensions.width20),
-                      child: BigText(
-                          text: "\RM ${product.price} | Add to cart",
-                          color: Colors.white),
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
                           color: AppColors.pink),
+                      child: BigText(
+                          text: "RM ${product.price} | Add to cart",
+                          color: Colors.white),
                     ))
               ],
             ),

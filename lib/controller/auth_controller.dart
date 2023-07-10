@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:terence_app/food/popular_food_detail.dart';
-import 'package:terence_app/food/recommended_food_detail.dart';
-import 'package:terence_app/home_page.dart';
+import 'package:terence_app/home/home_page.dart';
 import 'package:terence_app/login_page.dart';
 
 class AuthController extends GetxController {

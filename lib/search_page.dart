@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/service/auth_service.dart';
 
 class SearchPage extends StatefulWidget {

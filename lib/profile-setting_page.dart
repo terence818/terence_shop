@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
+  const ProfileSettingsPage({super.key});
+
   @override
   _ProfileSettingsPageState createState() => _ProfileSettingsPageState();
 }
@@ -37,8 +39,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             child: _image == null
                 ? Center(
                     child: ElevatedButton(
-                      child: Text('Select Image'),
                       onPressed: getImage,
+                      child: Text('Select Image'),
                     ),
                   )
                 : Image.file(

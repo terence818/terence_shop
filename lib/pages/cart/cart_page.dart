@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/controller/recommended_product_controller.dart';
-import 'package:terence_app/home/main_food_page.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
@@ -72,24 +69,24 @@ class CartPage extends StatelessWidget {
                   context: context,
                   removeTop: true,
                   child: GetBuilder<CartController>(builder: (cartController) {
-                    var _cartList = cartController.getItems;
+                    var cartList = cartController.getItems;
                     return ListView.builder(
-                        itemCount: _cartList.length,
+                        itemCount: cartList.length,
                         itemBuilder: (_, index) {
-                          return Container(
+                          return SizedBox(
                             width: double.maxFinite,
                             height: 100,
                             child: Row(children: [
                               GestureDetector(
                                 onTap: (){
                                   print("saadasd");
-                                    var popularIndex = Get.find<PopularProductController>().popularProductList.indexOf(_cartList[index].product!);
+                                    var popularIndex = Get.find<PopularProductController>().popularProductList.indexOf(cartList[index].product!);
                                     if(popularIndex>=0){
 
                                       Get.toNamed(RouteHelper.getPopularFood(popularIndex, "cart-page"));
 
                                     }else{
-                                       var recommendedIndex = Get.find<RecommendedProductController>().recommendedProductList.indexOf(_cartList[index].product!);
+                                       var recommendedIndex = Get.find<RecommendedProductController>().recommendedProductList.indexOf(cartList[index].product!);
 
                                        Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cart-page"));
                                     }
@@ -118,7 +115,7 @@ class CartPage extends StatelessWidget {
                                 width: Dimensions.width10,
                               ),
                               Expanded(
-                                  child: Container(
+                                  child: SizedBox(
                                       height: Dimensions.height20 * 5,
                                       child: Column(
                                         crossAxisAlignment:
@@ -157,7 +154,7 @@ class CartPage extends StatelessWidget {
                                                   GestureDetector(
                                                     onTap: () {
                                                       cartController.addItem(
-                                                          _cartList[index]
+                                                          cartList[index]
                                                               .product!,
                                                           -1);
                                                     },
@@ -170,7 +167,7 @@ class CartPage extends StatelessWidget {
                                                     width: Dimensions.width5,
                                                   ),
                                                   BigText(
-                                                      text: _cartList[index]
+                                                      text: cartList[index]
                                                           .quantity
                                                           .toString()),
                                                   SizedBox(
@@ -179,7 +176,7 @@ class CartPage extends StatelessWidget {
                                                   GestureDetector(
                                                       onTap: () {
                                                         cartController.addItem(
-                                                            _cartList[index]
+                                                            cartList[index]
                                                                 .product!,
                                                             1);
                                                       },
@@ -232,7 +229,7 @@ class CartPage extends StatelessWidget {
                     SizedBox(
                       width: Dimensions.width5,
                     ),
-                    BigText(text: "RM " +cartController.totalAmount.toString()),
+                    BigText(text: "RM ${cartController.totalAmount}"),
                     SizedBox(
                       width: Dimensions.width5,
                     ),
@@ -249,13 +246,13 @@ class CartPage extends StatelessWidget {
                           bottom: Dimensions.height10,
                           left: Dimensions.width20,
                           right: Dimensions.width20),
-                      child: BigText(
-                          text: "Check out",
-                          color: Colors.white),
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
                           color: AppColors.pink),
+                      child: BigText(
+                          text: "Check out",
+                          color: Colors.white),
                     ))
               ],
             ),

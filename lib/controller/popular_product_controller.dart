@@ -97,7 +97,7 @@ Future<void> getPopularProductList() async {
     if (exist) {
       _inCartItems = _cart.getQuantity(product);
     }
-    print("the quantity in the cart is" + _inCartItems.toString());
+    print("the quantity in the cart is$_inCartItems");
 
     //if exist
     //get from storage _inCartItems=3
@@ -109,10 +109,7 @@ Future<void> getPopularProductList() async {
     _quantity = 0;
     _inCartItems = _cart.getQuantity(product);
     _cart.items.forEach((key, value) {
-      print("The id is " +
-          value.id.toString() +
-          "The quantity is" +
-          value.quantity.toString());
+      print("The id is ${value.id}The quantity is${value.quantity}");
     });
     // } else {
     //   Get.snackbar("Add Cart", "You should at least add an item in the cart!",

@@ -1,24 +1,28 @@
 import 'package:get/get.dart';
 import 'package:terence_app/food/popular_food_detail.dart';
 import 'package:terence_app/food/recommended_food_detail.dart';
-import 'package:terence_app/home/main_food_page.dart';
-import 'package:terence_app/home_page.dart';
+import 'package:terence_app/home/home_page.dart';
 import 'package:terence_app/pages/cart/cart_page.dart';
+import 'package:terence_app/pages/splash/splash_page.dart';
 
 class RouteHelper {
+  static const String splashPage="/splash-page";
   static const String initial = "/home-page";
   static const String popularFood = "/popular-food";
   static const String recommendedFood = "/recommended-food";
   static const String cartPage = "/cart-page";
 
+
+  static String getSplashPage()=>'$splashPage';
   static String getInitial() => '$initial';
   static String getPopularFood(int pageId, String page) =>
       '$popularFood?pageId=$pageId&page=$page';
   static String getRecommendedFood(int pageId, String page) =>
       '$recommendedFood?pageId=$pageId&page=$page';
-  static String getCartPage() => '$cartPage';
+  static String getCartPage() => cartPage;
 
   static List<GetPage> routes = [
+    GetPage(name: splashPage, page: ()=>SplashScreen()),
     GetPage(name: initial, page: () => HomePage()),
     GetPage(
         name: popularFood,

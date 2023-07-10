@@ -1,11 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:terence_app/home_page.dart';
 import 'package:terence_app/register_page.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -148,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 20),
             RichText(
                 text: TextSpan(
-                    text: "Don\'t have an account?",
+                    text: "Don't have an account?",
                     style: TextStyle(color: Colors.grey[500], fontSize: 20),
                     children: [
                   TextSpan(

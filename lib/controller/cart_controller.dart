@@ -8,7 +8,7 @@ import 'package:terence_app/utils/colors.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
-  Map<int, CartModel> _items = {};
+  final Map<int, CartModel> _items = {};
 
   Map<int, CartModel> get items => _items;
 
@@ -67,7 +67,7 @@ class CartController extends GetxController {
     if (_items.containsKey(product.id)) {
       _items.forEach((key, value) {
         if (key == product.id) {
-          quantity = value.quantity!;
+          quantity = value.quantity;
         }
       });
     }
@@ -93,7 +93,7 @@ class CartController extends GetxController {
   var total = 0;
 
   _items.forEach((key, value) {
-    total += (value.quantity! * value.price!).toInt();
+    total += (value.quantity* value.price).toInt();
   });
 
   return total;

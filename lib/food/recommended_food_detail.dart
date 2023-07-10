@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/controller/recommended_product_controller.dart';
-import 'package:terence_app/pages/cart/cart_page.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
@@ -48,8 +46,9 @@ class RecommendedFoodDetail extends StatelessWidget {
                   GetBuilder<PopularProductController>(builder: (controller) {
                     return GestureDetector(
                       onTap: () {
-                        if (controller.totalItems >= 1)
+                        if (controller.totalItems >= 1) {
                           Get.toNamed(RouteHelper.getCartPage());
+                        }
                       },
                       child: Stack(
                         children: [
@@ -88,9 +87,6 @@ class RecommendedFoodDetail extends StatelessWidget {
               preferredSize: Size.fromHeight(0),
               child: Container(
                 // margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
-                child: Center(
-                    child:
-                        BigText(size: Dimensions.font26, text: product.name)),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
                 decoration: BoxDecoration(
@@ -98,6 +94,10 @@ class RecommendedFoodDetail extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(Dimensions.radius20),
                         topRight: Radius.circular(Dimensions.radius20))),
+                // margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
+                child: Center(
+                    child:
+                        BigText(size: Dimensions.font26, text: product.name)),
               ),
             ),
             pinned: true,
@@ -199,13 +199,13 @@ class RecommendedFoodDetail extends StatelessWidget {
                           bottom: Dimensions.height20,
                           left: Dimensions.width20,
                           right: Dimensions.width20),
-                      child: BigText(
-                          text: "\RM ${product.price} | Add to cart",
-                          color: Colors.white),
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
                           color: AppColors.pink),
+                      child: BigText(
+                          text: "RM ${product.price} | Add to cart",
+                          color: Colors.white),
                     ))
               ],
             ),
