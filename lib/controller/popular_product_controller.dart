@@ -73,7 +73,7 @@ Future<void> getPopularProductList() async {
   int checkQuantity(int quantity) {
     if ((_inCartItems + quantity) < 0) {
       Get.snackbar("Item count", "You can't reduce more!",
-          backgroundColor: AppColors.pink, colorText: Colors.white);
+          backgroundColor: AppColors.mainColor, colorText: Colors.white);
        if(_inCartItems>0){
         _quantity = -_inCartItems;
         return _quantity;
@@ -81,7 +81,7 @@ Future<void> getPopularProductList() async {
       return 0;
     } else if (_inCartItems + quantity > 20) {
       Get.snackbar("Item count", "You can't add more!",
-          backgroundColor: AppColors.pink, colorText: Colors.white);
+          backgroundColor: AppColors.mainColor, colorText: Colors.white);
       return 20;
     } else {
       return quantity;
@@ -113,7 +113,7 @@ Future<void> getPopularProductList() async {
     });
     // } else {
     //   Get.snackbar("Add Cart", "You should at least add an item in the cart!",
-    //       backgroundColor: AppColors.pink, colorText: Colors.white);
+    //       backgroundColor: AppColors.mainColor, colorText: Colors.white);
     // }
 
     update();

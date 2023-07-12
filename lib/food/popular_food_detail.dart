@@ -79,7 +79,7 @@ class PopularFoodDetail extends StatelessWidget {
                                     icon: Icons.circle,
                                     size: 20,
                                     iconColor: Colors.transparent,
-                                    backgroundColor: AppColors.pink,
+                                    backgroundColor: AppColors.mainColor,
                                   ),
                                 )
                               : Container(),
@@ -204,7 +204,7 @@ class PopularFoodDetail extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
-                          color: AppColors.pink),
+                          color: AppColors.mainColor),
                       child: BigText(
                           text: "RM ${product.price} | Add to cart",
                           color: Colors.white),

@@ -8,9 +8,14 @@ import 'package:terence_app/utils/colors.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
-  final Map<int, CartModel> _items = {};
+  late Map<int, CartModel> _items = {};
 
   Map<int, CartModel> get items => _items;
+
+  /*
+  only for storage and sharedpreferences
+  */
+  List<CartModel> storageItems=[];
 
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
@@ -47,10 +52,12 @@ class CartController extends GetxController {
         });
       } else {
         Get.snackbar("Add Cart", "You should at least add an item in the cart!",
-            backgroundColor: AppColors.pink, colorText: Colors.white);
+            backgroundColor: AppColors.mainColor, colorText: Colors.white);
       }
     }
 
+
+    cartRepo.addToCartList(getItems);
     update();
   }
 
@@ -98,5 +105,37 @@ class CartController extends GetxController {
 
   return total;
 }
+
+   List<CartModel> getCartData(){
+    /*
+    setCart = List[]
+    */
+    setCart = cartRepo.getCartList();
+    return storageItems;
+
+    }
+
+    set setCart(List<CartModel> items){
+      storageItems=items;
+
+      for(int i=0; i<storageItems.length;i++){
+        _items.putIfAbsent(storageItems[i].product!.id, () => storageItems[i]);
+      }
+    }
+
+    void addToHistory(){
+      cartRepo.addToCartHistoryList();
+      clear();
+    }
+
+    void clear(){
+      _items={};
+      update();
+    }
+
+    List<CartModel> getCartHistoryList(){
+      return cartRepo.getCartHistoryList();
+    }
+
 
 }

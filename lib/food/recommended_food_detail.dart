@@ -61,7 +61,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                                     icon: Icons.circle,
                                     size: 20,
                                     iconColor: Colors.transparent,
-                                    backgroundColor: AppColors.pink,
+                                    backgroundColor: AppColors.mainColor,
                                   ),
                                 )
                               : Container(),
@@ -142,7 +142,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     child: AppIcon(
                         iconSize: Dimensions.iconSize24,
                         iconColor: Colors.white,
-                        backgroundColor: AppColors.pink,
+                        backgroundColor: AppColors.mainColor,
                         icon: Icons.remove)),
                 BigText(
                     text: "RM ${product.price} X ${controller.inCartItems}"),
@@ -153,7 +153,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     child: AppIcon(
                         iconSize: Dimensions.iconSize24,
                         iconColor: Colors.white,
-                        backgroundColor: AppColors.pink,
+                        backgroundColor: AppColors.mainColor,
                         icon: Icons.add))
               ],
             ),
@@ -186,7 +186,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                       color: Colors.white),
                   child: Icon(
                     Icons.favorite,
-                    color: AppColors.pink,
+                    color: AppColors.mainColor,
                   ),
                 ),
                 GestureDetector(
@@ -202,7 +202,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
-                          color: AppColors.pink),
+                          color: AppColors.mainColor),
                       child: BigText(
                           text: "RM ${product.price} | Add to cart",
                           color: Colors.white),

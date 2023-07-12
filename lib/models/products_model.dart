@@ -68,18 +68,35 @@ class ProductModel {
     typeID = json['typeID'] ?? 0;
   }
 
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = <String, dynamic>{};
+  //   data['id'] = id;
+  //   data['name'] = name;
+  //   data['description'] = description;
+  //   data['price'] = price;
+  //   data['stars'] = stars;
+  //   data['img'] = img;
+  //   data['location'] = location;
+  //   data['createdAt'] = createdAt;
+  //   data['updatedAt'] = updatedAt;
+  //   data['typeID'] = typeID;
+  //   return data;
+  // }
+
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['description'] = description;
-    data['price'] = price;
-    data['stars'] = stars;
-    data['img'] = img;
-    data['location'] = location;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['typeID'] = typeID;
-    return data;
+    return{
+   
+      "id": this.id,
+      "name": this.name,
+      "price": this.price,
+      "stars" :this.stars,
+      "img": this.img,
+      "location": this.location,
+      "createdAt":this.createdAt,
+      "updatedAt": this.updatedAt,
+      "typeID" :this.typeID,
+
+    };
+   
   }
 }

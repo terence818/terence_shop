@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terence_app/home/main_food_page.dart';
+import 'package:terence_app/pages/cart/cart_history.dart';
 import 'package:terence_app/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     MainFoodPage(),
     Container(child: Center(child: Text("Next page"))),
-    Container(child: Center(child: Text("Next next page"))),
+    CartHistory(),
     Container(child: Center(child: Text("Next next next page"))),
   ];
 
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.pink ,
+        selectedItemColor: AppColors.mainColor ,
         unselectedItemColor: Colors.amberAccent,
         showSelectedLabels: false,
         showUnselectedLabels: false,

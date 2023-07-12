@@ -45,14 +45,14 @@ class CartPage extends StatelessWidget {
               child: AppIcon(
                 icon: Icons.home_outlined,
                 iconColor: Colors.white,
-                backgroundColor: AppColors.pink,
+                backgroundColor: AppColors.mainColor,
                 iconSize: Dimensions.iconSize24,
               ),
             ),
             AppIcon(
               icon: Icons.shopping_cart,
               iconColor: Colors.white,
-              backgroundColor: AppColors.pink,
+              backgroundColor: AppColors.mainColor,
               iconSize: Dimensions.iconSize24,
             ),
           ]),
@@ -239,6 +239,8 @@ class CartPage extends StatelessWidget {
                 GestureDetector(
                     onTap: () {
                       // popularProduct.addItem(product);
+                      print("tapped");
+                      cartController.addToHistory();
                     },
                     child: Container(
                       padding: EdgeInsets.only(
@@ -249,7 +251,7 @@ class CartPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
-                          color: AppColors.pink),
+                          color: AppColors.mainColor),
                       child: BigText(
                           text: "Check out",
                           color: Colors.white),

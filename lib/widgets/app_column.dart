@@ -23,7 +23,7 @@ class AppColumn extends StatelessWidget {
                           children: List.generate(
                               5,
                               (index) => Icon(Icons.star,
-                                  color: AppColors.pink, size: 10)),
+                                  color: AppColors.mainColor, size: 10)),
                         ),
                         SizedBox(width: 10),
                         SmallText(text: "4.5"),
