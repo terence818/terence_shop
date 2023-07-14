@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore: ^4.5.1
   dots_indicator: ^2.1.0
   persistent_bottom_nav_bar: any
+  intl: ^0.18.1
 
 
 dev_dependencies:
