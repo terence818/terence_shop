@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:terence_app/controller/popular_product_controller.dart';
+import 'package:terence_app/controller/recommended_product_controller.dart';
 import 'package:terence_app/home/food_page_body.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
@@ -13,63 +16,71 @@ class MainFoodPage extends StatefulWidget {
 }
 
 class _MainFoodPageState extends State<MainFoodPage> {
+  Future<void> _loadResource() async {
+    await Get.find<PopularProductController>().getPopularProductList();
+    await Get.find<RecommendedProductController>().getRecommendedProductList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-      children: [
-        Container(
-            child: Container(
-                margin: EdgeInsets.only(
-                    top: Dimensions.height30, bottom: Dimensions.height15),
-                padding: EdgeInsets.only(
-                    left: Dimensions.width20, right: Dimensions.width20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
+    return RefreshIndicator(
+        child: Column(
+          children: [
+            Container(
+                child: Container(
+                    margin: EdgeInsets.only(
+                        top: Dimensions.height30, bottom: Dimensions.height15),
+                    padding: EdgeInsets.only(
+                        left: Dimensions.width20, right: Dimensions.width20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BigText(
-                            text: "Malaysia", color: AppColors.mainColor, size: 30),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Column(
                           children: [
-                            SmallText(
-                              text: "Seremban",
-                              color: Colors.black54,
-                            ),
-                            SizedBox(width: 10),
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              radius: Dimensions.radius20,
-                              child: Icon(
-                                Icons.arrow_drop_down,
-                                color: Colors.black,
-                              ),
+                            BigText(
+                                text: "Malaysia",
+                                color: AppColors.mainColor,
+                                size: 30),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SmallText(
+                                  text: "Seremban",
+                                  color: Colors.black54,
+                                ),
+                                SizedBox(width: 10),
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: Dimensions.radius20,
+                                  child: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.black,
+                                  ),
+                                )
+                              ],
                             )
                           ],
+                        ),
+                        Center(
+                          child: Container(
+                            width: Dimensions.width45,
+                            height: Dimensions.height45,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(Dimensions.radius15),
+                                color: AppColors.mainColor),
+                            child: Icon(Icons.search,
+                                color: Colors.white, size: 20),
+                          ),
                         )
                       ],
-                    ),
-                    Center(
-                      child: Container(
-                        width: Dimensions.width45,
-                        height: Dimensions.height45,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radius15),
-                            color: AppColors.mainColor),
-                        child:
-                            Icon(Icons.search, color: Colors.white, size: 20),
-                      ),
-                    )
-                  ],
-                ))),
-        Expanded(
-            child: SingleChildScrollView(
-                child: FoodPageBody(),
-        ))
-      ],
-    ));
+                    ))),
+            Expanded(
+                child: SingleChildScrollView(
+              child: FoodPageBody(),
+            ))
+          ],
+        ),
+        onRefresh: _loadResource);
   }
 }

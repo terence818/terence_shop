@@ -5,6 +5,8 @@ import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/controller/recommended_product_controller.dart';
 import 'package:get/get.dart';
+import 'package:terence_app/pages/auth/sign_in_page.dart';
+import 'package:terence_app/pages/auth/sign_up_page.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/service/auth_service.dart';
 import 'helper/dependencies.dart' as dep;
@@ -36,9 +38,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.pink,
           ),
-          // home: AuthService().handleAuthState(),
-          initialRoute: RouteHelper.getSplashPage(),
-          getPages: RouteHelper.routes,
+          home: SignInPage(),
+          // initialRoute: RouteHelper.getSplashPage(),
+          // getPages: RouteHelper.routes,
           // AuthService().handleAuthState()
         );
       });

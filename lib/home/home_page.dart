@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:terence_app/home/main_food_page.dart';
+import 'package:terence_app/pages/account/account_page.dart';
 import 'package:terence_app/pages/cart/cart_history.dart';
 import 'package:terence_app/utils/colors.dart';
 
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     MainFoodPage(),
     Container(child: Center(child: Text("Next page"))),
     CartHistory(),
-    Container(child: Center(child: Text("Next next next page"))),
+    AccountPage()
   ];
 
   void onTapNav(int index) {
@@ -28,35 +29,43 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.mainColor ,
+        selectedItemColor: AppColors.mainColor,
         unselectedItemColor: Colors.amberAccent,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         selectedFontSize: 0.0,
         unselectedFontSize: 0.0,
         currentIndex: _selectedIndex,
-        onTap:onTapNav,
+        onTap: onTapNav,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined,),
-           label:"home",
+            icon: Icon(
+              Icons.home_outlined,
+            ),
+            label: "home",
           ),
-           BottomNavigationBarItem(
-            icon: Icon(Icons.archive,),
-           label:"history",
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.archive,
+            ),
+            label: "history",
           ),
-           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart,),
-           label:"cart",
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.shopping_cart,
+            ),
+            label: "cart",
           ),
-           BottomNavigationBarItem(
-            icon: Icon(Icons.person,),
-           label:"me",
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+            ),
+            label: "me",
           ),
         ],
       ),
@@ -143,6 +152,4 @@ class _HomePageState extends State<HomePage> {
   //         NavBarStyle.style5, // Choose the nav bar style with this property.
   //   );
   // }
-
- 
 }
