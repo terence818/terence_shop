@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:terence_app/home/home_page.dart';
-import 'package:terence_app/login_page.dart';
+import 'package:terence_app/pages/auth/sign_in_page.dart';
 
 class AuthController extends GetxController {
   //AuthController.instance..
@@ -22,7 +22,7 @@ class AuthController extends GetxController {
   _initialScreen(User? user) {
     if (user == null) {
     
-      Get.offAll(() => LoginPage());
+      Get.offAll(() => SignInPage());
     } else {
       Get.offAll(() => HomePage());
     }

@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:terence_app/home_page.dart';
-import 'package:terence_app/login_page.dart';
+import 'package:terence_app/home/home_page.dart';
+import 'package:terence_app/pages/auth/sign_in_page.dart';
 
 class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>["email"]);
@@ -15,7 +15,7 @@ class AuthService {
           if (snapshot.hasData) {
             return HomePage();
           } else {
-            return LoginPage();
+            return SignInPage();
           }
         });
   }
