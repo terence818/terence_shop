@@ -7,6 +7,9 @@ class AppConstants{
   static const String RECOMMENDED_PRODUCT_URL="/api/v1/products/recommended";
   static const String UPLOAD="/uploads/";
 
+  //auth end points
+   static const String REGISTRATION_URL="/api/v1/auth/register";
+
   static const String TOKEN="Dbtoken";
   static const String CART_LIST="cart-list";
   static const String CART_HISTORY_LIST="cart-history-list";

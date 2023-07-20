@@ -1,67 +1,28 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:terence_app/home/home_page.dart';
-import 'package:terence_app/pages/auth/sign_in_page.dart';
+import 'package:terence_app/data/repository/auth_repo.dart';
+import 'package:terence_app/models/response_model.dart';
+import 'package:terence_app/models/signup_body_model.dart';
 
-class AuthController extends GetxController {
-  //AuthController.instance..
-  static AuthController instance = Get.find();
-  late Rx<User?> _user;
-  FirebaseAuth auth = FirebaseAuth.instance;
+class AuthController extends GetxController implements GetxService {
+  final AuthRepo authRepo;
+  AuthController({required this.authRepo});
 
-  @override
-  void onReady() {
-    super.onReady();
-    _user = Rx<User?>(auth.currentUser);
-    //our user would be notified
-    _user.bindStream(auth.userChanges());
-    ever(_user, _initialScreen);
-  }
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
 
-  _initialScreen(User? user) {
-    if (user == null) {
-    
-      Get.offAll(() => SignInPage());
+  Future<ResponseModel>registration(SignUpBody signUpBody) async {
+    _isLoading = true;
+    update();
+    Response response = await authRepo.registration(signUpBody);
+    late ResponseModel responseModel;
+    if (response.statusCode == 200) {
+      authRepo.saveUserToken(response.body["token"]);
+      responseModel = ResponseModel(true, response.body["token"]);
     } else {
-      Get.offAll(() => HomePage());
+      responseModel = ResponseModel(true, response.statusText!);
     }
-  }
-
-  void register(String email, password) async {
-    try {
-      await auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-    } catch (e) {
-      Get.snackbar("About User", "User message",
-          backgroundColor: Colors.redAccent,
-          snackPosition: SnackPosition.BOTTOM,
-          titleText: Text("Account creation failed",
-              style: TextStyle(color: Colors.white)),
-          messageText: Text(
-            e.toString(),
-            style: TextStyle(color: Colors.white),
-          ));
-    }
-  }
-
-  void login(String email, password) async {
-    try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
-    } catch (e) {
-      Get.snackbar("About Login", "Login message",
-          backgroundColor: Colors.redAccent,
-          snackPosition: SnackPosition.BOTTOM,
-          titleText:
-              Text("Login failed", style: TextStyle(color: Colors.white)),
-          messageText: Text(
-            e.toString(),
-            style: TextStyle(color: Colors.white),
-          ));
-    }
-  }
-
-  void logOut() async {
-    await auth.signOut();
+    _isLoading=false;
+    update();
+    return responseModel;
   }
 }
