@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:terence_app/base/custom_loader.dart';
+import 'package:terence_app/base/show_custom_nackbar.dart';
+import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/pages/auth/sign_up_page.dart';
+import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
 import 'package:terence_app/widgets/app_text_field.dart';
@@ -14,12 +18,39 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
-    var nameController = TextEditingController();
-    var phoneController = TextEditingController();
+     void _login(AuthController authController) {
+    
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+       if (email.isEmpty) {
+        showCustomSnackBar("Type in your email address",
+            title: "Email address");
+      } else if (!GetUtils.isEmail(email)) {
+        print(email);
+        showCustomSnackBar("Type in valid email address",
+            title: "Valid email address");
+      } else if (password.isEmpty) {
+        showCustomSnackBar("Type in your password", title: "Password");
+      } else if (password.length < 6) {
+        showCustomSnackBar("Pasword can not be less than six characters",
+            title: "Password");
+      } else {
+      
+        authController.login(email,password).then((status) {
+          if (status.isSuccess) {
+            Get.toNamed(RouteHelper.getSplashPage());
+          } else {
+            showCustomSnackBar(status.message);
+          }
+        });
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: GetBuilder<AuthController>(builder:(authController){
+          return !authController.isLoading?SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(children: [
           SizedBox(
@@ -83,17 +114,22 @@ class SignInPage extends StatelessWidget {
           ),
           SizedBox(height: Dimensions.height10),
           //sign in
-          Container(
-            width: Dimensions.screenWidth / 2,
-            height: Dimensions.screenHeight / 13,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius30),
-                color: AppColors.mainColor),
-            child: Center(
-              child: BigText(
-                  text: "Sign in",
-                  size: Dimensions.font20 + Dimensions.font20 / 2,
-                  color: Colors.white),
+         GestureDetector(
+          onTap: (){
+            _login(authController);
+          },
+            child: Container(
+              width: Dimensions.screenWidth / 2,
+              height: Dimensions.screenHeight / 13,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  color: AppColors.mainColor),
+              child: Center(
+                child: BigText(
+                    text: "Sign in",
+                    size: Dimensions.font20 + Dimensions.font20 / 2,
+                    color: Colors.white),
+              ),
             ),
           ),
           SizedBox(height: Dimensions.height10),
@@ -118,7 +154,8 @@ class SignInPage extends StatelessWidget {
                 ]),
           ),
         ]),
-      ),
+      ):CustomLoader();
+      })
     );
   }
 }

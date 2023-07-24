@@ -21,6 +21,12 @@ class _MainFoodPageState extends State<MainFoodPage> {
     await Get.find<RecommendedProductController>().getRecommendedProductList();
   }
 
+  //  @override
+  // void initState() {
+  //   super.initState();
+  //   _loadResource(); // Call the _loadResource function when the widget is initialized
+  // }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
@@ -20,11 +21,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dep.init();
   // await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-  runApp(const MyApp());
+   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  runApp(MyApp(sharedPreferences: sharedPreferences));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required SharedPreferences sharedPreferences});
 
   // This widget is the root of your application.
   @override
@@ -39,8 +41,8 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.pink,
           ),
           home: SignInPage(),
-          // initialRoute: RouteHelper.getSplashPage(),
-          // getPages: RouteHelper.routes,
+          initialRoute: RouteHelper.getSignInPage(),
+          getPages: RouteHelper.routes,
           // AuthService().handleAuthState()
         );
       });
