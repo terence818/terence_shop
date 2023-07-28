@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:terence_app/base/custom_loader.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/cart_controller.dart';
+import 'package:terence_app/controller/location_controller.dart';
 import 'package:terence_app/controller/user_controller.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/colors.dart';
@@ -18,7 +19,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
-    print("uselogin"+_userLoggedIn.toString());
+    print("uselogin" + _userLoggedIn.toString());
     if (_userLoggedIn) {
       print("user login");
       Get.find<UserController>().getUserInfo();
@@ -58,7 +59,7 @@ class AccountPage extends StatelessWidget {
                                           iconSize: Dimensions.height45,
                                           size: Dimensions.height10 * 5),
                                       bigText: BigText(
-                                          text: userController.userModel.name)),
+                                          text: userController.userModel!.name)),
                                   SizedBox(height: Dimensions.height20),
                                   //phone
                                   AccountWidget(
@@ -71,7 +72,7 @@ class AccountPage extends StatelessWidget {
                                           size: Dimensions.height10 * 5),
                                       bigText: BigText(
                                           text:
-                                              userController.userModel.phone)),
+                                              userController.userModel!.phone)),
                                   SizedBox(height: Dimensions.height20),
                                   //email
                                   AccountWidget(
@@ -84,19 +85,44 @@ class AccountPage extends StatelessWidget {
                                           size: Dimensions.height10 * 5),
                                       bigText: BigText(
                                           text:
-                                              userController.userModel.email)),
+                                              userController.userModel!.email)),
                                   SizedBox(height: Dimensions.height20),
                                   //address
-                                  AccountWidget(
-                                      appIcon: AppIcon(
-                                          icon: Icons.location_on,
-                                          backgroundColor:
-                                              AppColors.yellowColor,
-                                          iconColor: Colors.white,
-                                          iconSize: Dimensions.height45,
-                                          size: Dimensions.height10 * 5),
-                                      bigText: BigText(
-                                          text: "Fill in your address")),
+                                  GetBuilder<LocationController>(
+                                      builder: (locationController) {
+                                    if(_userLoggedIn&&locationController.addressList.isEmpty){
+                                      return GestureDetector(
+                                        onTap: (){
+                                          Get.offNamed(RouteHelper.getAddressPage());
+                                        },
+                                        child: AccountWidget(
+                                          appIcon: AppIcon(
+                                              icon: Icons.location_on,
+                                              backgroundColor:
+                                                  AppColors.yellowColor,
+                                              iconColor: Colors.white,
+                                              iconSize: Dimensions.height45,
+                                              size: Dimensions.height10 * 5),
+                                          bigText: BigText(
+                                              text: "Fill in your address")),
+                                      );
+                                    } else{
+                                       return GestureDetector(
+                                        onTap: (){
+                                          Get.offNamed(RouteHelper.getAddressPage());
+                                        },
+                                        child: AccountWidget(
+                                          appIcon: AppIcon(
+                                              icon: Icons.location_on,
+                                              backgroundColor:
+                                                  AppColors.yellowColor,
+                                              iconColor: Colors.white,
+                                              iconSize: Dimensions.height45,
+                                              size: Dimensions.height10 * 5),
+                                          bigText: BigText(
+                                              text: "Your address")));
+                                    }
+                                  }),
                                   SizedBox(height: Dimensions.height20),
                                   //message
                                   AccountWidget(
@@ -118,6 +144,8 @@ class AccountPage extends StatelessWidget {
                                         Get.find<CartController>().clear();
                                         Get.find<CartController>()
                                             .clearCartHistory();
+                                            Get.find<LocationController>()
+                                            .clearAddressList();
                                         Get.offNamed(
                                             RouteHelper.getSignInPage());
                                       } else {
@@ -162,21 +190,25 @@ class AccountPage extends StatelessWidget {
                                   "assets/images/signintocontinue.png"))),
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Get.toNamed(RouteHelper.getSignInPage());
                       },
                       child: Container(
-                        width: double.maxFinite,
-                        height: Dimensions.height20 * 5,
-                        margin: EdgeInsets.only(
-                            left: Dimensions.width20, right: Dimensions.width20),
-                        decoration: BoxDecoration(
-                          color:AppColors.mainColor,
+                          width: double.maxFinite,
+                          height: Dimensions.height20 * 5,
+                          margin: EdgeInsets.only(
+                              left: Dimensions.width20,
+                              right: Dimensions.width20),
+                          decoration: BoxDecoration(
+                            color: AppColors.mainColor,
                             borderRadius:
                                 BorderRadius.circular(Dimensions.radius20),
-                        ),
-                        child:Center(child: BigText(text:"Sign in", color:Colors.white, size:Dimensions.font20))
-                      ),
+                          ),
+                          child: Center(
+                              child: BigText(
+                                  text: "Sign in",
+                                  color: Colors.white,
+                                  size: Dimensions.font20))),
                     ),
                   ],
                 )));

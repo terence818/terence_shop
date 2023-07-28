@@ -6,6 +6,7 @@ import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/controller/recommended_product_controller.dart';
 import 'package:get/get.dart';
+import 'package:terence_app/pages/address/add_address_page.dart';
 import 'package:terence_app/pages/auth/sign_in_page.dart';
 import 'package:terence_app/pages/auth/sign_up_page.dart';
 import 'package:terence_app/routes/route_helper.dart';
@@ -21,12 +22,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dep.init();
   // await Firebase.initializeApp().then((value) => Get.put(AuthController()));
-   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  runApp(MyApp(sharedPreferences: sharedPreferences));
+  //  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required SharedPreferences sharedPreferences});
+    const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.pink,
           ),
-          home: SignInPage(),
+          // home: AddAddressPage(),
           initialRoute: RouteHelper.getSignInPage(),
           getPages: RouteHelper.routes,
           // AuthService().handleAuthState()

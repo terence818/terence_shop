@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:terence_app/base/no_data_page.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/cart_controller.dart';
+import 'package:terence_app/controller/location_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/controller/recommended_product_controller.dart';
 import 'package:terence_app/routes/route_helper.dart';
@@ -264,8 +265,14 @@ class CartPage extends StatelessWidget {
                     onTap: () {
                       // popularProduct.addItem(product);
                       if(Get.find<AuthController>().userLoggedIn()){
+
+                        if(Get.find<LocationController>().addressList.isEmpty){
+                          Get.toNamed(RouteHelper.getAddressPage());
+                        } else{
+                          Get.offNamed(RouteHelper.getInitial());
+                        }
                       
-                      cartController.addToHistory();
+                      // cartController.addToHistory();
                       } else {
                          Get.toNamed(RouteHelper.getSignInPage());
                       }

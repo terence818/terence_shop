@@ -13,16 +13,18 @@ class ApiClient extends GetConnect implements GetxService {
     baseUrl = appBaseUrl;
     timeout = Duration(seconds: 60);
     // token =AppConstants.TOKEN;
-    token = sharedPreferences.getString(AppConstants.TOKEN)!; // replace with your actual token value
+    token = sharedPreferences.getString(AppConstants.TOKEN)??""; // replace with your actual token value
     _mainHeaders = {
-      'Content-type': 'application/json; charset=UTF-8',
+  
+      'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
   }
 
   void updateHeader(String token) {
     _mainHeaders = {
-      'Content-type': 'application/json; charset=UTF-8',
+   
+      'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     };
   }

@@ -38,6 +38,7 @@ class SignInPage extends StatelessWidget {
       } else {
       
         authController.login(email,password).then((status) {
+          
           if (status.isSuccess) {
             Get.toNamed(RouteHelper.getSplashPage());
           } else {
