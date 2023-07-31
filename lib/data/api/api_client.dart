@@ -13,23 +13,22 @@ class ApiClient extends GetConnect implements GetxService {
     baseUrl = appBaseUrl;
     timeout = Duration(seconds: 60);
     // token =AppConstants.TOKEN;
-    token = sharedPreferences.getString(AppConstants.TOKEN)??""; // replace with your actual token value
+    token = sharedPreferences.getString(AppConstants.TOKEN) ??
+        ""; // replace with your actual token value
     _mainHeaders = {
-  
-      'Accept': 'application/json',
+      'Content-type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $token',
     };
   }
 
   void updateHeader(String token) {
     _mainHeaders = {
-   
-      'Accept': 'application/json',
+      'Content-type': 'application/json; charset=UTF-8',
       'Authorization': 'Bearer $token',
     };
   }
 
-   Future<Response> getData(String uri, {Map<String, String>? headers}) async {
+  Future<Response> getData(String uri, {Map<String, String>? headers}) async {
     try {
       Response response = await get(uri, headers: headers ?? _mainHeaders);
       return response;
@@ -39,8 +38,8 @@ class ApiClient extends GetConnect implements GetxService {
   }
 
   Future<Response> postData(String uri, dynamic body) async {
-    print(body.toString());
     try {
+      // print("header" + headers.toString());
       Response response = await post(uri, body, headers: _mainHeaders);
       print(response.toString());
       return response;

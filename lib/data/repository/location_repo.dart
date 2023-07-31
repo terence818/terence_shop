@@ -11,28 +11,28 @@ class LocationRepo {
 
   LocationRepo({required this.apiClient, required this.sharedPreferences});
 
-  Future<Response> getAddressfromGeocode(LatLng latlng) async{
-    return await apiClient.getData('${AppConstants.GEOCODE_URL}''?lat=${latlng.latitude}&lng=${latlng.longitude}');
-
+  Future<Response> getAddressfromGeocode(LatLng latlng) async {
+    return await apiClient.getData('${AppConstants.GEOCODE_URL}'
+        '?lat=${latlng.latitude}&lng=${latlng.longitude}');
   }
 
-  String getUserAddress(){
-    return sharedPreferences.getString(AppConstants.USER_ADDRESS)??"";
+  String getUserAddress() {
+    return sharedPreferences.getString(AppConstants.USER_ADDRESS) ?? "";
   }
 
-  Future<Response> addAddress(AddressModel addressModel) async{
-    print(sharedPreferences.getString(AppConstants.TOKEN.toString()));
-     apiClient.updateHeader(sharedPreferences.getString(AppConstants.TOKEN)!);
-    return await apiClient.post(AppConstants.ADD_USER_ADDRESS, addressModel.toJson());
-
+  Future<Response> addAddress(AddressModel addressModel) async {
+    apiClient.updateHeader(sharedPreferences.getString(AppConstants.TOKEN)!);
+    return await apiClient.postData(
+        AppConstants.ADD_USER_ADDRESS, addressModel.toJson());
   }
 
-  Future<Response> getAllAddress() async{
+  Future<Response> getAllAddress() async {
     return await apiClient.getData(AppConstants.ADDRESS_LIST_URL);
   }
 
-  Future<bool> saveUserAddress(String address) async{
+  Future<bool> saveUserAddress(String address) async {
     apiClient.updateHeader(sharedPreferences.getString(AppConstants.TOKEN)!);
-    return await sharedPreferences.setString(AppConstants.USER_ADDRESS, address);
+    return await sharedPreferences.setString(
+        AppConstants.USER_ADDRESS, address);
   }
 }

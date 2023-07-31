@@ -11,39 +11,34 @@ class AuthController extends GetxController implements GetxService {
   bool get isLoading => _isLoading;
 
   Future<ResponseModel> registration(SignUpBody signUpBody) async {
-    print("Getting token");
-    print(authRepo.getUserToken().toString());
     authRepo.getUserToken();
     _isLoading = true;
     update();
     Response response = await authRepo.registration(signUpBody);
     late ResponseModel responseModel;
-    print(response.statusCode.toString());
+    // print(response.statusCode.toString());
     if (response.statusCode == 200) {
-      print("Backend token");
       authRepo.saveUserToken(response.body["token"]);
       responseModel = ResponseModel(true, response.body["token"]);
     } else {
-      responseModel = ResponseModel(true, response.statusText!);
+      responseModel = ResponseModel(false, response.statusText!);
     }
     _isLoading = false;
     update();
     return responseModel;
   }
 
-  
   Future<ResponseModel> login(String email, String password) async {
     _isLoading = true;
     update();
-    Response response = await authRepo.login(email,password);
+    Response response = await authRepo.login(email, password);
     late ResponseModel responseModel;
     if (response.statusCode == 200) {
       authRepo.saveUserToken(response.body["token"]);
-      print("My token is" + response.body['token']);
+
       responseModel = ResponseModel(true, response.body["token"]);
     } else {
-      
-      responseModel = ResponseModel(true, response.statusText!);
+      responseModel = ResponseModel(false, response.statusText!);
     }
     _isLoading = false;
     update();
@@ -58,8 +53,7 @@ class AuthController extends GetxController implements GetxService {
     return authRepo.userLoggedIn();
   }
 
-  bool clearSharedData(){
+  bool clearSharedData() {
     return authRepo.clearSharedData();
   }
-
 }

@@ -114,20 +114,19 @@ class LocationController extends GetxController implements GetxService {
   }
 
   Future<ResponseModel> addAddress(AddressModel addressModel) async {
-    print( "address model"+ addressModel.toJson().toString());
     _loading = true;
-    update();
+    // update();
     Response response = await locationRepo.addAddress(addressModel);
+
     ResponseModel responseModel;
-    print("response adres"+ response.body.toString());
+
     if (response.statusCode == 200) {
       await getAddressList();
       String message = response.body["message"];
       responseModel = ResponseModel(true, message);
       await saveUserAddress(addressModel);
     } else {
-      
-      print("Couldn't save the address"+ response.statusCode.toString());
+      // print("Couldn't save the address"+ response.statusCode.toString());
       responseModel = ResponseModel(false, response.statusText!);
     }
     update();
@@ -155,9 +154,9 @@ class LocationController extends GetxController implements GetxService {
     return await locationRepo.saveUserAddress(userAddress);
   }
 
-  void clearAddressList(){
-    _addressList=[];
-    _allAddressList=[];
+  void clearAddressList() {
+    _addressList = [];
+    _allAddressList = [];
     update();
   }
 }

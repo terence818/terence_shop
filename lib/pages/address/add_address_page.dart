@@ -232,12 +232,13 @@ class _AddAddressPage extends State<AddAddressPage> {
                 GestureDetector(
                     onTap: () {
                      AddressModel _addressModel  = AddressModel(addressType: locationController.addressTypeList[locationController.addressTypeIndex],
-                    
+                    //  id:42,
                      contactPersonName: _contactPersonName.text,
                      contactPersonNumber: _contactPersonNumber.text,
                      address:_addressController.text ,
                      latitude:locationController.position.latitude.toString(),
                      longitude:locationController.position.longitude.toString(),  );
+                     print( "address model"+ _addressModel.toJson().toString());
                      locationController.addAddress(_addressModel).then((response) {
                       if(response.isSuccess){
                         Get.toNamed(RouteHelper.getInitial());
