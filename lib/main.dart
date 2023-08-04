@@ -11,6 +11,7 @@ import 'package:terence_app/pages/auth/sign_in_page.dart';
 import 'package:terence_app/pages/auth/sign_up_page.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/service/auth_service.dart';
+import 'package:terence_app/utils/colors.dart';
 import 'helper/dependencies.dart' as dep;
 
 // void main() {
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
           // set the initial rout
           title: 'Flutter Demo',
           theme: ThemeData(
-            primarySwatch: Colors.pink,
+            primaryColor: AppColors.mainColor,
+            fontFamily: "Lato",
           ),
           // home: AddAddressPage(),
           initialRoute: RouteHelper.getSignInPage(),

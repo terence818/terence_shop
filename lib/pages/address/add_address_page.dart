@@ -6,6 +6,7 @@ import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/location_controller.dart';
 import 'package:terence_app/controller/user_controller.dart';
 import 'package:terence_app/models/address_model.dart';
+import 'package:terence_app/pages/address/pick_address_map.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
@@ -38,6 +39,11 @@ class _AddAddressPage extends State<AddAddressPage> {
     }
 
     if (Get.find<LocationController>().addressList.isNotEmpty) {
+      
+
+        if(Get.find<LocationController>().getUerAddressFromLocalStorage()==""){
+            Get.find<LocationController>().saveUserAddress(Get.find<LocationController>().addressList.last);
+        }
       Get.find<LocationController>().getUserAddress();
       _cameraPosition = CameraPosition(
           target: LatLng(
@@ -75,7 +81,7 @@ class _AddAddressPage extends State<AddAddressPage> {
                 '${locationController.placemark.locality ?? ''}'
                 '${locationController.placemark.postalCode ?? ''}'
                 '${locationController.placemark.country ?? ''}';
-            print("address in my view is" + _addressController.text);
+         
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +100,16 @@ class _AddAddressPage extends State<AddAddressPage> {
                             target: _initialPosition,
                             zoom: 50,
                           ),
+                          onTap: (latlng){
+                              Get.toNamed(RouteHelper.getPickAddressPage(),
+                              arguments: PickAddressMap(
+                                fromSignup: false,
+                                fromAddress: true,
+                                googleMapController: locationController.mapController,
+
+
+                              ));
+                          },
                           zoomControlsEnabled: false,
                           compassEnabled: false,
                           indoorViewEnabled: true,
@@ -107,6 +123,9 @@ class _AddAddressPage extends State<AddAddressPage> {
                               _cameraPosition = position),
                           onMapCreated: (GoogleMapController controller) {
                             locationController.setMapController(controller);
+                            if(Get.find<LocationController>().addressList.isEmpty){
+
+                            }
                           })
                     ]),
                   ),
@@ -238,7 +257,7 @@ class _AddAddressPage extends State<AddAddressPage> {
                      address:_addressController.text ,
                      latitude:locationController.position.latitude.toString(),
                      longitude:locationController.position.longitude.toString(),  );
-                     print( "address model"+ _addressModel.toJson().toString());
+                    //  print( "address model"+ _addressModel.toJson().toString());
                      locationController.addAddress(_addressModel).then((response) {
                       if(response.isSuccess){
                         Get.toNamed(RouteHelper.getInitial());
