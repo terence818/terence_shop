@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:terence_app/base/custom_button.dart';
 import 'package:terence_app/controller/location_controller.dart';
+import 'package:terence_app/pages/address/widgets/search_location_dialogue_page.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/colors.dart';
 import 'package:terence_app/utils/dimensions.dart';
@@ -67,6 +68,12 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       Get.find<LocationController>()
                           .updatePositon(_cameraPosition, false);
                     },
+                    onMapCreated: (GoogleMapController mapController){
+                      _mapController =mapController;
+                      if(!widget.fromAddress){
+
+                      }
+                    },
                   ),
                   Center(
                       child: !locationController.loading
@@ -76,34 +83,46 @@ class _PickAddressMapState extends State<PickAddressMap> {
                               width: 50,
                             )
                           : CircularProgressIndicator()),
+                  /*
+                  showing and selecting address 
+                  */
                   Positioned(
                     top: Dimensions.height45,
                     left: Dimensions.width20,
                     right: Dimensions.width20,
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Dimensions.width10),
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: AppColors.mainColor,
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20 / 2),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.location_on,
-                                size: 25, color: AppColors.yellowColor),
-                            Expanded(
-                                child: Text(
-                              "${locationController.pickPlacemark.name ?? ''}",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: Dimensions.font16),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ))
-                          ],
-                        )),
+                    child: InkWell(
+                      onTap: ()=>Get.dialog(LocationDialogue(mapController: _mapController)),
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.width10),
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: AppColors.mainColor,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius20 / 2),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.location_on,
+                                  size: 25, color: AppColors.yellowColor),
+                              Expanded(
+                                  child: Text(
+                                "${locationController.pickPlacemark.name ?? ''}",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: Dimensions.font16),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              )),
+                              SizedBox(width: Dimensions.width10),
+                              Icon(
+                                Icons.search,
+                                size: 25,
+                                color: AppColors.yellowColor,
+                              )
+                            ],
+                          )),
+                    ),
                   ),
                   Positioned(
                       bottom: 80,
@@ -115,8 +134,12 @@ class _PickAddressMapState extends State<PickAddressMap> {
                             )
                           : CustomButton(
                               // width: 200,
-                              buttonText:locationController.inZone?widget.fromAddress?'Pick Address':'Pick Location':"Service is not available in your area",
-                              onPressed: (locationController.buttonDisabled||locationController.loading)
+                              buttonText: locationController.inZone
+                                  ? widget.fromAddress
+                                      ? 'Pick Address'
+                                      : 'Pick Location'
+                                  : "Service is not available in your area",
+                              onPressed: (locationController.loading)
                                   ? null
                                   : () {
                                       if (locationController
@@ -143,8 +166,9 @@ class _PickAddressMapState extends State<PickAddressMap> {
                                             locationController
                                                 .setAddAddressData();
                                           }
-                                          Get.toNamed(
-                                              RouteHelper.getAddressPage());
+                                          Get.back();
+                                          // Get.toNamed(
+                                          //     RouteHelper.getAddressPage());
                                         }
                                       }
                                     },

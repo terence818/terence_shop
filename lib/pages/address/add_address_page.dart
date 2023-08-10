@@ -98,7 +98,7 @@ class _AddAddressPage extends State<AddAddressPage> {
                       GoogleMap(
                           initialCameraPosition: CameraPosition(
                             target: _initialPosition,
-                            zoom: 50,
+                            zoom: 17,
                           ),
                           onTap: (latlng){
                               Get.toNamed(RouteHelper.getPickAddressPage(),
@@ -123,10 +123,11 @@ class _AddAddressPage extends State<AddAddressPage> {
                               _cameraPosition = position),
                           onMapCreated: (GoogleMapController controller) {
                             locationController.setMapController(controller);
-                            if(Get.find<LocationController>().addressList.isEmpty){
+                            // if(Get.find<LocationController>().addressList.isEmpty){
 
-                            }
-                          })
+                            // }
+                          }
+                          )
                     ]),
                   ),
                   Padding(

@@ -23,6 +23,7 @@ class AccountPage extends StatelessWidget {
     if (_userLoggedIn) {
       print("user login");
       Get.find<UserController>().getUserInfo();
+      Get.find<LocationController>().getAddressList();
     }
     return Scaffold(
         appBar: AppBar(
@@ -59,7 +60,8 @@ class AccountPage extends StatelessWidget {
                                           iconSize: Dimensions.height45,
                                           size: Dimensions.height10 * 5),
                                       bigText: BigText(
-                                          text: userController.userModel!.name)),
+                                          text:
+                                              userController.userModel!.name)),
                                   SizedBox(height: Dimensions.height20),
                                   //phone
                                   AccountWidget(
@@ -90,37 +92,42 @@ class AccountPage extends StatelessWidget {
                                   //address
                                   GetBuilder<LocationController>(
                                       builder: (locationController) {
-                                    if(_userLoggedIn&&locationController.addressList.isEmpty){
+                                    if (_userLoggedIn &&
+                                        locationController
+                                            .addressList.isEmpty) {
                                       return GestureDetector(
-                                        onTap: (){
-                                          Get.offNamed(RouteHelper.getAddressPage());
+                                        onTap: () {
+                                          Get.offNamed(
+                                              RouteHelper.getAddressPage());
                                         },
                                         child: AccountWidget(
-                                          appIcon: AppIcon(
-                                              icon: Icons.location_on,
-                                              backgroundColor:
-                                                  AppColors.yellowColor,
-                                              iconColor: Colors.white,
-                                              iconSize: Dimensions.height45,
-                                              size: Dimensions.height10 * 5),
-                                          bigText: BigText(
-                                              text: "Fill in your address")),
+                                            appIcon: AppIcon(
+                                                icon: Icons.location_on,
+                                                backgroundColor:
+                                                    AppColors.yellowColor,
+                                                iconColor: Colors.white,
+                                                iconSize: Dimensions.height45,
+                                                size: Dimensions.height10 * 5),
+                                            bigText: BigText(
+                                                text: "Fill in your address")),
                                       );
-                                    } else{
-                                       return GestureDetector(
-                                        onTap: (){
-                                          Get.offNamed(RouteHelper.getAddressPage());
-                                        },
-                                        child: AccountWidget(
-                                          appIcon: AppIcon(
-                                              icon: Icons.location_on,
-                                              backgroundColor:
-                                                  AppColors.yellowColor,
-                                              iconColor: Colors.white,
-                                              iconSize: Dimensions.height45,
-                                              size: Dimensions.height10 * 5),
-                                          bigText: BigText(
-                                              text: "Your address")));
+                                    } else {
+                                      return GestureDetector(
+                                          onTap: () {
+                                            Get.offNamed(
+                                                RouteHelper.getAddressPage());
+                                          },
+                                          child: AccountWidget(
+                                              appIcon: AppIcon(
+                                                  icon: Icons.location_on,
+                                                  backgroundColor:
+                                                      AppColors.yellowColor,
+                                                  iconColor: Colors.white,
+                                                  iconSize: Dimensions.height45,
+                                                  size:
+                                                      Dimensions.height10 * 5),
+                                              bigText: BigText(
+                                                  text: "Your address")));
                                     }
                                   }),
                                   SizedBox(height: Dimensions.height20),
@@ -144,7 +151,7 @@ class AccountPage extends StatelessWidget {
                                         Get.find<CartController>().clear();
                                         Get.find<CartController>()
                                             .clearCartHistory();
-                                            Get.find<LocationController>()
+                                        Get.find<LocationController>()
                                             .clearAddressList();
                                         Get.offNamed(
                                             RouteHelper.getSignInPage());

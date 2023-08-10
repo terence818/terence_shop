@@ -6,10 +6,11 @@
    <application
         android:label="terence_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+         android:enableOnBackInvokedCallback="true">
           <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyCgZiHXkZ6uvsPykSRuLpHKSMOezqWLSFA" />
+                android:value="AIzaSyB1gUIsHx870gER5Gh-QbrULWaub4McV0A" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
