@@ -27,4 +27,7 @@ class AppConstants {
   static const String ZONE_URL = "/api/v1/config/get-zone-id";
   static const String SEARCH_LOCATION_URL='/api/v1/config/place-api-autocomplete';
   static const String PLACE_DETAILS_URL='/api/v1/config/place-api-details';
+
+  //orders
+  static const String PLACE_ORDER_URL='/api/v1/customer/order/place';
 }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:terence_app/base/no_data_page.dart';
+import 'package:terence_app/base/show_custom_nackbar.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/cart_controller.dart';
 import 'package:terence_app/controller/location_controller.dart';
+import 'package:terence_app/controller/order_controller.dart';
 import 'package:terence_app/controller/popular_product_controller.dart';
 import 'package:terence_app/controller/recommended_product_controller.dart';
+import 'package:terence_app/controller/user_controller.dart';
+import 'package:terence_app/models/place_order_model.dart';
 import 'package:terence_app/routes/route_helper.dart';
 import 'package:terence_app/utils/app_constants.dart';
 import 'package:terence_app/utils/colors.dart';
@@ -19,6 +23,9 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     Get.find<UserController>().getUserInfo();
+     Get.find<LocationController>().getAddressList();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -269,7 +276,28 @@ class CartPage extends StatelessWidget {
                         if(Get.find<LocationController>().addressList.isEmpty){
                           Get.toNamed(RouteHelper.getAddressPage());
                         } else{
-                          Get.offNamed(RouteHelper.getInitial());
+                          // Get.offNamed(RouteHelper.getInitial());
+                          var location = Get.find<LocationController>().getUserAddress();
+                          var cart = Get.find<CartController>().getItems;
+                          var user = Get.find<UserController>().userModel;
+                          print("location " + location.toJson().toString());
+                          PlaceOrderBody placeOrder =PlaceOrderBody(
+                              cart:cart,
+                              orderAmount: 100.0,
+                              orderNote:"Not about the food",
+                              address: location.address,
+                              latitude:location.latitude,
+                              longitude:location.longitude,
+                              contactPersonNumber: user!.phone,
+                              contactPersonName: user.name,
+                              scheduleAt:'',
+                              distance:10.0,
+
+
+
+                          );
+                       
+                          Get.find<OrderController>().placeOrder(placeOrder,_callback);
                         }
                       
                       // cartController.addToHistory();
@@ -295,5 +323,16 @@ class CartPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _callback(bool isSuccess, String message, String orderID) {
+    if(isSuccess){
+         Get.find<CartController>().clear();
+        //  Get.find<CartController>().removeCartSharedPreference();
+         Get.find<CartController>().addToHistory();
+         Get.offNamed(RouteHelper.getPaymentPage(orderID,Get.find<UserController>().userModel!.id));
+    } else {
+      showCustomSnackBar(message);
+    }
   }
 }

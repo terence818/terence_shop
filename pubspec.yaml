@@ -54,6 +54,7 @@ dependencies:
   google_maps_flutter_web: ^0.5.2
   flutter_google_places: ^0.3.0
   flutter_typeahead: ^4.6.2
+  webview_flutter: ^2.0.14
 
 
 dev_dependencies:
