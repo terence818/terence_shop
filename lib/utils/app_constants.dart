@@ -30,4 +30,5 @@ class AppConstants {
 
   //orders
   static const String PLACE_ORDER_URL='/api/v1/customer/order/place';
+  static const String ORDER_LIST_URL='/api/v1/customer/order/list';
 }

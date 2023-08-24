@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:terence_app/home/main_food_page.dart';
 import 'package:terence_app/pages/account/account_page.dart';
 import 'package:terence_app/pages/cart/cart_history.dart';
+import 'package:terence_app/pages/order/order_page.dart';
 import 'package:terence_app/utils/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     MainFoodPage(),
-    Container(child: Center(child: Text("Next page"))),
+    OrderPage(),
     CartHistory(),
     AccountPage()
   ];
