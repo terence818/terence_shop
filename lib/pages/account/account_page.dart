@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:terence_app/base/custom_app_bar.dart';
 import 'package:terence_app/base/custom_loader.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/cart_controller.dart';
@@ -26,10 +27,7 @@ class AccountPage extends StatelessWidget {
       Get.find<LocationController>().getAddressList();
     }
     return Scaffold(
-        appBar: AppBar(
-            title: BigText(text: "Profile", color: Colors.white, size: 24),
-            centerTitle: true,
-            backgroundColor: AppColors.mainColor),
+        appBar: CustomAppBar(title: "Profile",),
         body: GetBuilder<UserController>(builder: (userController) {
           return _userLoggedIn
               ? (userController.isLoading

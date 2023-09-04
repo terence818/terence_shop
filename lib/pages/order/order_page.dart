@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:terence_app/base/custom_app_bar.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/order_controller.dart';
 import 'package:terence_app/pages/order/view_order.dart';
@@ -30,12 +31,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "My orders",
-        ),
-        backgroundColor: AppColors.mainColor,
-      ),
+      appBar: CustomAppBar(title: 'My orders',),
       body: Column(children: [
         Container(
           width: Dimensions.screenWidth,

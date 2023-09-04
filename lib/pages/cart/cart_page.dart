@@ -233,7 +233,7 @@ class CartPage extends StatelessWidget {
       bottomNavigationBar: GetBuilder<CartController>(
         builder: (cartController) {
           return Container(
-            height: 100,
+            height: 150,
             padding: EdgeInsets.only(
                 top: Dimensions.height20,
                 bottom: Dimensions.height20,
@@ -246,7 +246,10 @@ class CartPage extends StatelessWidget {
                 topRight: Radius.circular(Dimensions.radius20 * 2),
               ),
             ),
-            child: Row(
+            child: cartController.getItems.length>0?Column(
+              children: [
+                InkWell(),
+                Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
@@ -319,6 +322,9 @@ class CartPage extends StatelessWidget {
                     ))
               ],
             ),
+              ],
+
+            ):Container()
           );
         },
       ),

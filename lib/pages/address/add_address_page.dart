@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:terence_app/base/custom_app_bar.dart';
 import 'package:terence_app/controller/auth_controller.dart';
 import 'package:terence_app/controller/location_controller.dart';
 import 'package:terence_app/controller/user_controller.dart';
@@ -61,10 +62,7 @@ class _AddAddressPage extends State<AddAddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Address page"),
-          backgroundColor: AppColors.mainColor,
-        ),
+        appBar: CustomAppBar(title: 'Address'),
         body: GetBuilder<UserController>(builder: (userController) {
           if (userController.userModel != null &&
               _contactPersonName.text.isEmpty) {
