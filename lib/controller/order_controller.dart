@@ -11,6 +11,15 @@ class OrderController extends GetxController implements GetxService {
   List<OrderModel> get currentOrderList => _currentOrderList;
   List<OrderModel> get historyOrderList => _historyOrderList;
 
+  int _paymentIndex = 0;
+  int get paymentIndex => _paymentIndex;
+
+  String _orderType = "delivery";
+  String get orderType => _orderType;
+
+  String _foodNote = "";
+  String get foodNote => _foodNote;
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -51,7 +60,21 @@ class OrderController extends GetxController implements GetxService {
     }
     _isLoading = false;
     print("The length of the orders" + _currentOrderList.length.toString());
-      print("The length of the orders" + _historyOrderList.length.toString());
+    print("The length of the orders" + _historyOrderList.length.toString());
     update();
+  }
+
+  void setPaymentIndex(int index) {
+    _paymentIndex = index;
+    update();
+  }
+
+  void setDeliveryType(String type) {
+    _orderType = type;
+    update();
+  }
+
+  void setFoodNote(String note) {
+    _foodNote = note;
   }
 }
